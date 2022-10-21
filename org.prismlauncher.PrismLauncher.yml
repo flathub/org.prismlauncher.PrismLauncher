@@ -25,6 +25,8 @@ finish-args:
   - --filesystem=xdg-run/app/com.discordapp.Discord:create
     # Mod drag&drop
   - --filesystem=xdg-download:ro
+    # PolyMC -> PrismLauncher flatpak migration
+  - --filesystem=~/.var/app/org.polymc.PolyMC/data:ro
 
 modules:
   - name: prismlauncher
