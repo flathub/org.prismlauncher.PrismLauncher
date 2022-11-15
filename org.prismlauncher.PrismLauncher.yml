@@ -32,8 +32,8 @@ modules:
     buildsystem: cmake-ninja
     sources:
       - type: archive
-        url: https://github.com/marzer/tomlplusplus/archive/refs/tags/v3.2.0.tar.gz
-        sha256: aeba776441df4ac32e4d4db9d835532db3f90fd530a28b74e4751a2915a55565
+        url: https://github.com/marzer/tomlplusplus/archive/0a90913abf9390b9e08ab6d3b40ac11634553f38.zip
+        sha256: f29e773a30f105f9506a99641dadf0bae9c0de3a830f1b66d4236ba401708e55
 
   - name: prismlauncher
     buildsystem: cmake-ninja
@@ -50,6 +50,8 @@ modules:
         sha256: 307257f34ddf664d1cf33ad5ba6ad2e08cf23392f58065a223e90448235ad556
       - type: patch
         path: 0001-fix-metadata.patch  # wasn't backported!
+      - type: patch
+        path: 0002-fix-disable-FLOAT16-in-toml.patch  # Workaround for tomlplusplus failing on aarch64
   - name: openjdk
     buildsystem: simple
     build-commands:
