@@ -38,8 +38,8 @@ modules:
         JAVA_COMPILER: /usr/lib/sdk/openjdk17/jvm/openjdk-17/bin/javac
     sources:
       - type: archive
-        url: https://github.com/PrismLauncher/PrismLauncher/releases/download/5.1/PrismLauncher-5.1.tar.gz
-        sha256: d5774911c2fde98f6b663c76084e49e8f664a0f21e13da9196072d38191a7d1e
+        url: https://github.com/PrismLauncher/PrismLauncher/releases/download/5.2/PrismLauncher-5.2.tar.gz
+        sha256: 307257f34ddf664d1cf33ad5ba6ad2e08cf23392f58065a223e90448235ad556
       - type: patch
         path: 0001-fix-metadata.patch  # wasn't backported!
   - name: openjdk
