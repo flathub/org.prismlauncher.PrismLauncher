@@ -6,6 +6,6 @@ for i in {0..9}; do
 done
 
 export PATH="${PATH}${PATH:+:}/app/utils/gamescope/bin:/usr/lib/extensions/vulkan/MangoHud/bin"
-export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}${LD_LIBRARY_PATH:+:}/usr/lib/extensions/vulkan/MangoHud/\$LIB/"
+export VK_LAYER_PATH="/usr/lib/extensions/vulkan/share/vulkan/implicit_layer.d/"
 
 exec /app/bin/prismrun "$@"
