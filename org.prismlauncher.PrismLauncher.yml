@@ -27,14 +27,6 @@ finish-args:
   - --filesystem=xdg-download:ro
 
 modules:
-  # Temporary workaround: Use older tomlplusplus to avoid build failure on aarch64
-  - name: tomlplusplus
-    buildsystem: cmake-ninja
-    sources:
-      - type: archive
-        url: https://github.com/marzer/tomlplusplus/archive/0a90913abf9390b9e08ab6d3b40ac11634553f38.zip
-        sha256: f29e773a30f105f9506a99641dadf0bae9c0de3a830f1b66d4236ba401708e55
-
   - name: prismlauncher
     buildsystem: cmake-ninja
     config-opts:
@@ -46,8 +38,8 @@ modules:
         JAVA_COMPILER: /usr/lib/sdk/openjdk17/jvm/openjdk-17/bin/javac
     sources:
       - type: archive
-        url: https://github.com/PrismLauncher/PrismLauncher/releases/download/6.0/PrismLauncher-6.0.tar.gz
-        sha256: 4b8845186e509f62564f47f48b04f8abb3e35523ba8b33c5413475724e49e1dc
+        url: https://github.com/PrismLauncher/PrismLauncher/releases/download/6.1/PrismLauncher-6.1.tar.gz
+        sha256: d89171a982af0f93208b25c33f5f890ca9674bd0573e685da969d6436103da9c
   - name: openjdk
     buildsystem: simple
     build-commands:
