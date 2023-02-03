@@ -38,8 +38,8 @@ modules:
         JAVA_COMPILER: /usr/lib/sdk/openjdk17/jvm/openjdk-17/bin/javac
     sources:
       - type: archive
-        url: https://github.com/PrismLauncher/PrismLauncher/releases/download/6.1/PrismLauncher-6.1.tar.gz
-        sha256: d89171a982af0f93208b25c33f5f890ca9674bd0573e685da969d6436103da9c
+        url: https://github.com/PrismLauncher/PrismLauncher/releases/download/6.3/PrismLauncher-6.3.tar.gz
+        sha256: fc1896df6422248dbd767d4a82066fe6044ae104354ebf75fc5ae92252f2fb1a
   - name: openjdk
     buildsystem: simple
     build-commands:
