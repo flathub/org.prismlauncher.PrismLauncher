@@ -18,7 +18,7 @@ finish-args:
   - --share=ipc
   - --socket=x11
   - --socket=wayland
-  - --device=all
+  - --device=dri
   - --share=network
   - --socket=pulseaudio
     # for Discord RPC mods
