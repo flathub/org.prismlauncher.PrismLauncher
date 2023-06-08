@@ -1,6 +1,6 @@
 id: org.prismlauncher.PrismLauncher
 runtime: org.kde.Platform
-runtime-version: "5.15-22.08"
+runtime-version: 5.15-22.08
 sdk: org.kde.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.openjdk17
@@ -41,8 +41,8 @@ modules:
         JAVA_COMPILER: /usr/lib/sdk/openjdk17/jvm/openjdk-17/bin/javac
     sources:
       - type: archive
-        url: https://github.com/PrismLauncher/PrismLauncher/releases/download/7.0/PrismLauncher-7.0.tar.gz
-        sha256: aef3d368aea8c5c65d6db0d258ef3d0a2965a009f1311568190d2b557ec01833
+        url: https://github.com/PrismLauncher/PrismLauncher/releases/download/6.3/PrismLauncher-6.3.tar.gz
+        sha256: fc1896df6422248dbd767d4a82066fe6044ae104354ebf75fc5ae92252f2fb1a
         x-checker-data:
           type: anitya
           project-id: 301949
@@ -77,9 +77,9 @@ modules:
     sources:
       - type: git
         url: https://github.com/FeralInteractive/gamemode
-        tag: "1.7"
+        tag: '1.7'
         commit: 4dc99dff76218718763a6b07fc1900fa6d1dafd9
-        
+
   - name: zlib
     buildsystem: cmake-ninja
     sources:
