@@ -34,19 +34,21 @@ modules:
     config-opts:
       - -DLauncher_BUILD_PLATFORM=flatpak
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+      - -DLauncher_QT_VERSION_MAJOR=5
     build-options:
       env:
         JAVA_HOME: /usr/lib/sdk/openjdk17/jvm/openjdk-17
         JAVA_COMPILER: /usr/lib/sdk/openjdk17/jvm/openjdk-17/bin/javac
     sources:
       - type: archive
-        url: https://github.com/PrismLauncher/PrismLauncher/releases/download/6.3/PrismLauncher-6.3.tar.gz
-        sha256: fc1896df6422248dbd767d4a82066fe6044ae104354ebf75fc5ae92252f2fb1a
+        url: https://github.com/PrismLauncher/PrismLauncher/releases/download/7.0/PrismLauncher-7.0.tar.gz
+        sha256: aef3d368aea8c5c65d6db0d258ef3d0a2965a009f1311568190d2b557ec01833
         x-checker-data:
           type: anitya
           project-id: 301949
           stable-only: true
           url-template: https://github.com/PrismLauncher/PrismLauncher/releases/download/$version/PrismLauncher-$version.tar.gz
+    builddir: true
   - name: openjdk
     buildsystem: simple
     build-commands:
