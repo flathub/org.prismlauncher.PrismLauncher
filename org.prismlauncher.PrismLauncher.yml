@@ -65,9 +65,17 @@ modules:
     buildsystem: autotools
     sources:
       - type: archive
-        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.1.tar.xz
-        sha256: 7bc76daf9d72f8aff885efad04ce06b90488a1a169d118dea8a2b661832e8762
-    cleanup: [/share/man, /bin/xkeystone]
+        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.2.tar.xz
+        sha256: c8bee4790d9058bacc4b6246456c58021db58a87ddda1a9d0139bf5f18f1f240
+        x-checker-data:
+          type: anitya
+          project-id: 14957
+          stable-only: true
+          url-template: https://xorg.freedesktop.org/archive/individual/app/xrandr-$version.tar.xz
+    cleanup:
+      - /share/man
+      - /bin/xkeystone
+
   - name: gamemode
     buildsystem: meson
     config-opts:
