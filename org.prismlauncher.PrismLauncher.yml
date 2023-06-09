@@ -86,10 +86,20 @@ modules:
       # post-install is running inside the build dir, we need it from the source though
       - install -Dm755 ../data/gamemoderun -t /app/bin
     sources:
-      - type: git
-        url: https://github.com/FeralInteractive/gamemode
-        tag: "1.7"
-        commit: 4dc99dff76218718763a6b07fc1900fa6d1dafd9
+      - type: archive
+        archive-type: tar-gzip
+        url: https://api.github.com/repos/FeralInteractive/gamemode/tarball/1.7
+        sha256: 57ce73ba605d1cf12f8d13725006a895182308d93eba0f69f285648449641803
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/FeralInteractive/gamemode/releases/latest
+          version-query: .tag_name
+          url-query: .tarball_url
+          timestamp-query: .published_at
+    cleanup:
+      - /include
+      - /lib/pkgconfig
+      - /lib/libgamemodeauto.a
         
   - name: zlib
     buildsystem: cmake-ninja
