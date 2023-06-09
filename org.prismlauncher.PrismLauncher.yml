@@ -31,6 +31,7 @@ modules:
   - shared-modules/libusb/libusb.json
   - name: prismlauncher
     buildsystem: cmake-ninja
+    builddir: true
     config-opts:
       - -DLauncher_BUILD_PLATFORM=flatpak
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
@@ -44,11 +45,11 @@ modules:
         url: https://github.com/PrismLauncher/PrismLauncher/releases/download/7.0/PrismLauncher-7.0.tar.gz
         sha256: aef3d368aea8c5c65d6db0d258ef3d0a2965a009f1311568190d2b557ec01833
         x-checker-data:
-          type: anitya
-          project-id: 301949
-          stable-only: true
-          url-template: https://github.com/PrismLauncher/PrismLauncher/releases/download/$version/PrismLauncher-$version.tar.gz
-    builddir: true
+          type: json
+          url: https://api.github.com/repos/PrismLauncher/PrismLauncher/releases/latest
+          version-query: .tag_name
+          url-query: .assets[] | select(.name == "PrismLauncher-" + $version + ".tar.gz") | .browser_download_url
+
   - name: openjdk
     buildsystem: simple
     build-commands:
@@ -57,7 +58,9 @@ modules:
       - mv /app/jre /app/jdk/17
       - /usr/lib/sdk/openjdk8/install.sh
       - mv /app/jre /app/jdk/8
-    cleanup: [/jre]
+    cleanup:
+      - /jre
+
   - name: xrandr
     buildsystem: autotools
     sources:
