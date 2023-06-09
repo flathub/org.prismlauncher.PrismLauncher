@@ -100,14 +100,7 @@ modules:
       - /include
       - /lib/pkgconfig
       - /lib/libgamemodeauto.a
-        
-  - name: zlib
-    buildsystem: cmake-ninja
-    sources:
-      - type: git
-        url: https://github.com/madler/zlib.git
-        tag: v1.2.13
-        commit: 04f42ceca40f73e2978b50e93806c2a18c1281fc
+
   - name: enhance
     buildsystem: simple
     build-commands:
