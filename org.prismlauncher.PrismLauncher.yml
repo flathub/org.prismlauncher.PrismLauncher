@@ -31,6 +31,7 @@ modules:
   - shared-modules/libusb/libusb.json
   - name: prismlauncher
     buildsystem: cmake-ninja
+    builddir: true
     config-opts:
       - -DLauncher_BUILD_PLATFORM=flatpak
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
@@ -44,11 +45,11 @@ modules:
         url: https://github.com/PrismLauncher/PrismLauncher/releases/download/7.0/PrismLauncher-7.0.tar.gz
         sha256: aef3d368aea8c5c65d6db0d258ef3d0a2965a009f1311568190d2b557ec01833
         x-checker-data:
-          type: anitya
-          project-id: 301949
-          stable-only: true
-          url-template: https://github.com/PrismLauncher/PrismLauncher/releases/download/$version/PrismLauncher-$version.tar.gz
-    builddir: true
+          type: json
+          url: https://api.github.com/repos/PrismLauncher/PrismLauncher/releases/latest
+          version-query: .tag_name
+          url-query: .assets[] | select(.name == "PrismLauncher-" + $version + ".tar.gz") | .browser_download_url
+
   - name: openjdk
     buildsystem: simple
     build-commands:
@@ -57,14 +58,24 @@ modules:
       - mv /app/jre /app/jdk/17
       - /usr/lib/sdk/openjdk8/install.sh
       - mv /app/jre /app/jdk/8
-    cleanup: [/jre]
+    cleanup:
+      - /jre
+
   - name: xrandr
     buildsystem: autotools
     sources:
       - type: archive
-        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.1.tar.xz
-        sha256: 7bc76daf9d72f8aff885efad04ce06b90488a1a169d118dea8a2b661832e8762
-    cleanup: [/share/man, /bin/xkeystone]
+        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.2.tar.xz
+        sha256: c8bee4790d9058bacc4b6246456c58021db58a87ddda1a9d0139bf5f18f1f240
+        x-checker-data:
+          type: anitya
+          project-id: 14957
+          stable-only: true
+          url-template: https://xorg.freedesktop.org/archive/individual/app/xrandr-$version.tar.xz
+    cleanup:
+      - /share/man
+      - /bin/xkeystone
+
   - name: gamemode
     buildsystem: meson
     config-opts:
@@ -75,18 +86,21 @@ modules:
       # post-install is running inside the build dir, we need it from the source though
       - install -Dm755 ../data/gamemoderun -t /app/bin
     sources:
-      - type: git
-        url: https://github.com/FeralInteractive/gamemode
-        tag: "1.7"
-        commit: 4dc99dff76218718763a6b07fc1900fa6d1dafd9
-        
-  - name: zlib
-    buildsystem: cmake-ninja
-    sources:
-      - type: git
-        url: https://github.com/madler/zlib.git
-        tag: v1.2.13
-        commit: 04f42ceca40f73e2978b50e93806c2a18c1281fc
+      - type: archive
+        archive-type: tar-gzip
+        url: https://api.github.com/repos/FeralInteractive/gamemode/tarball/1.7
+        sha256: 57ce73ba605d1cf12f8d13725006a895182308d93eba0f69f285648449641803
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/FeralInteractive/gamemode/releases/latest
+          version-query: .tag_name
+          url-query: .tarball_url
+          timestamp-query: .published_at
+    cleanup:
+      - /include
+      - /lib/pkgconfig
+      - /lib/libgamemodeauto.a
+
   - name: enhance
     buildsystem: simple
     build-commands:
