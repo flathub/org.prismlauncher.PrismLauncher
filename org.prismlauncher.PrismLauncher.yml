@@ -1,6 +1,6 @@
 id: org.prismlauncher.PrismLauncher
 runtime: org.kde.Platform
-runtime-version: "5.15-22.08"
+runtime-version: 5.15-22.08
 sdk: org.kde.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.openjdk17
@@ -42,13 +42,14 @@ modules:
         JAVA_COMPILER: /usr/lib/sdk/openjdk17/jvm/openjdk-17/bin/javac
     sources:
       - type: archive
-        url: https://github.com/PrismLauncher/PrismLauncher/releases/download/7.0/PrismLauncher-7.0.tar.gz
-        sha256: aef3d368aea8c5c65d6db0d258ef3d0a2965a009f1311568190d2b557ec01833
+        url: https://github.com/PrismLauncher/PrismLauncher/releases/download/7.1/PrismLauncher-7.1.tar.gz
+        sha256: dc7aeff6e0dc12f4f2065e718418a4110ccdbad3e49fbd58e416a213fde7ebb1
         x-checker-data:
           type: json
           url: https://api.github.com/repos/PrismLauncher/PrismLauncher/releases/latest
           version-query: .tag_name
-          url-query: .assets[] | select(.name == "PrismLauncher-" + $version + ".tar.gz") | .browser_download_url
+          url-query: .assets[] | select(.name == "PrismLauncher-" + $version + ".tar.gz")
+            | .browser_download_url
 
   - name: openjdk
     buildsystem: simple
