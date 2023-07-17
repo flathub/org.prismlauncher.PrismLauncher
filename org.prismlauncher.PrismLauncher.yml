@@ -5,13 +5,6 @@ sdk: org.kde.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.openjdk17
   - org.freedesktop.Sdk.Extension.openjdk8
-add-extensions:
-  com.valvesoftware.Steam.Utility.gamescope:
-    version: stable
-    add-ld-path: lib
-    no-autodownload: true
-    autodelete: false
-    directory: utils/gamescope
 
 command: prismlauncher
 finish-args:
@@ -159,7 +152,6 @@ modules:
   - name: enhance
     buildsystem: simple
     build-commands:
-      - mkdir -p /app/utils/gamescope
       - install -Dm755 prime-run /app/bin/prime-run
       - mv /app/bin/prismlauncher /app/bin/prismrun
       - install -Dm755 prismlauncher /app/bin/prismlauncher
