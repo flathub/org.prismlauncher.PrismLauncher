@@ -5,13 +5,6 @@ sdk: org.kde.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.openjdk17
   - org.freedesktop.Sdk.Extension.openjdk8
-add-extensions:
-  com.valvesoftware.Steam.Utility.gamescope:
-    version: stable
-    add-ld-path: lib
-    no-autodownload: true
-    autodelete: false
-    directory: utils/gamescope
 
 command: prismlauncher
 finish-args:
@@ -32,6 +25,9 @@ cleanup:
 modules:
   # Might be needed by some Controller mods (see https://github.com/isXander/Controlify/issues/31)
   - shared-modules/libusb/libusb.json
+
+  # Needed for proper Wayland support
+  - libdecor.json
 
   - name: prismlauncher
     buildsystem: cmake-ninja
@@ -63,6 +59,27 @@ modules:
       - mv /app/jre /app/jdk/8
     cleanup:
       - /jre
+
+  - name: glfw
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+      - -DBUILD_SHARED_LIBS:BOOL=ON
+      - -DGLFW_USE_WAYLAND=ON
+    sources:
+      - type: git
+        url: https://github.com/glfw/glfw.git
+        commit: 3fa2360720eeba1964df3c0ecf4b5df8648a8e52
+      - type: patch
+        path: patches/0003-Don-t-crash-on-calls-to-focus-or-icon.patch
+      - type: patch
+        path: patches/0005-Add-warning-about-being-an-unofficial-patch.patch
+      - type: patch
+        path: patches/0007-Platform-Prefer-Wayland-over-X11.patch
+    cleanup:
+      - /include
+      - /lib/cmake
+      - /lib/pkgconfig
 
   - name: xrandr
     buildsystem: autotools
@@ -134,7 +151,6 @@ modules:
   - name: enhance
     buildsystem: simple
     build-commands:
-      - mkdir -p /app/utils/gamescope
       - install -Dm755 prime-run /app/bin/prime-run
       - mv /app/bin/prismlauncher /app/bin/prismrun
       - install -Dm755 prismlauncher /app/bin/prismlauncher
