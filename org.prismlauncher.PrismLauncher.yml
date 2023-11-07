@@ -1,6 +1,6 @@
 id: org.prismlauncher.PrismLauncher
 runtime: org.kde.Platform
-runtime-version: "6.5"
+runtime-version: "6.6"
 sdk: org.kde.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.openjdk17
@@ -18,6 +18,8 @@ finish-args:
   - --filesystem=xdg-run/app/com.discordapp.Discord:create
     # Mod drag&drop
   - --filesystem=xdg-download:ro
+    # FTBApp import
+  - --filesystem=~/.ftba:ro
 
 cleanup:
   - /lib/libGLU*
@@ -41,8 +43,8 @@ modules:
         JAVA_COMPILER: /usr/lib/sdk/openjdk17/jvm/openjdk-17/bin/javac
     sources:
       - type: archive
-        url: https://github.com/PrismLauncher/PrismLauncher/releases/download/7.2/PrismLauncher-7.2.tar.gz
-        sha256: 5733b55c4532286813a6fb7de2f3a38e6f6db743a251919c8b646d32a84514b4
+        url: https://github.com/PrismLauncher/PrismLauncher/releases/download/8.0/PrismLauncher-8.0.tar.gz
+        sha256: 462f35eeda6e107b5f23a97500accf43e4227a0fb40145b29d0895bcfe3372b0
         x-checker-data:
           type: json
           url: https://api.github.com/repos/PrismLauncher/PrismLauncher/releases/latest
@@ -116,6 +118,9 @@ modules:
           version-query: .tag_name
           url-query: .tarball_url
           timestamp-query: .published_at
+      # from https://github.com/flathub/net.gaijin.WarThunder/blob/7ea6f7a9f84b9c77150c003a7059dc03f8dcbc7f/gamemode.patch
+      - type: patch
+        path: patches/gamemode.patch
     cleanup:
       - /include
       - /lib/pkgconfig
