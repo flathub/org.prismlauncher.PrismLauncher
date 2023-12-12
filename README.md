@@ -5,9 +5,23 @@ Please see upstream README for more information.
 
 ## FAQ
 
-### How to use MangoHUD
+### How to use MangoHud
 
-Please see this comment: https://github.com/flathub/org.polymc.PolyMC/issues/13#issuecomment-1141368225
+1\. Install MangoHud for Flatpak apps with the following command:
+
+```
+flatpak install org.freedesktop.Platform.VulkanLayer.MangoHud//23.08
+```
+
+2\. Open Prism, click on the **Settings** button
+
+3\. Select **Minecraft** from the left panel
+
+4\. Select the **Tweaks** tab
+
+5\. Tick the **Enable MangoHud** checkbox
+
+That's it!
 
 ### How do I run MC on a hybrid GPU system with a dedicated NVIDIA GPU using Prism Launcher?
 
