@@ -21,6 +21,12 @@ finish-args:
   - --filesystem=xdg-download:ro
     # FTBApp import
   - --filesystem=~/.ftba:ro
+    # Userspace visibility for manual hugepages configuration
+    # Required for -XX:+UseLargePages
+  - --filesystem=/sys/kernel/mm/hugepages:ro
+    # Userspace visibility for transparent hugepages configuration
+    # Required for -XX:+UseTransparentHugePages
+  - --filesystem=/sys/kernel/mm/transparent_hugepage:ro
 
 cleanup:
   - /lib/libGLU*
