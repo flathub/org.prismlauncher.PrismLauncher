@@ -35,6 +35,9 @@ modules:
   # Needed for proper Wayland support
   - libdecor.json
 
+  # Text to Speech in the game
+  - flite.json
+
   - name: prismlauncher
     buildsystem: cmake-ninja
     builddir: true
