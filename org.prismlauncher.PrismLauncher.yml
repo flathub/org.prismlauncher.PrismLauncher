@@ -50,14 +50,8 @@ modules:
         JAVA_COMPILER: /usr/lib/sdk/openjdk17/jvm/openjdk-17/bin/javac
     sources:
       - type: archive
-        url: https://github.com/PrismLauncher/PrismLauncher/releases/download/8.4/PrismLauncher-8.4.tar.gz
-        sha256: a4df9059559df2e410ddf933e05fe4bffaa01631c6eeb55e63af4a2d0d719726
-        x-checker-data:
-          type: json
-          url: https://api.github.com/repos/PrismLauncher/PrismLauncher/releases/latest
-          version-query: .tag_name
-          url-query: .assets[] | select(.name == "PrismLauncher-" + $version + ".tar.gz")
-            | .browser_download_url
+        url: https://github.com/prismlauncher/prismlauncher/archive/40b10ecf300b54594faeaf9bb4d4ded4e074dc40.tar.gz
+        sha256: 8d48713a801fe46eac7a465623c3489b07917de2b10d4371a84f9aec9cb96fa3
 
   - name: openjdk
     buildsystem: simple
