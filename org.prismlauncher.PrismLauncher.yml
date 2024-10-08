@@ -122,7 +122,7 @@ modules:
       - type: archive
         dest-filename: gamemode.tar.gz
         url: https://api.github.com/repos/FeralInteractive/gamemode/tarball/1.8.2
-        sha256: bff49d21f46a3ad20cb97ad387e86995ebbfb49c7a914d13dfc7256e0a60f080
+        sha256: 2886d4ce543c78bd2a364316d5e7fd59ef06b71de63f896b37c6d3dc97658f60
         x-checker-data:
           type: json
           url: https://api.github.com/repos/FeralInteractive/gamemode/releases/latest
