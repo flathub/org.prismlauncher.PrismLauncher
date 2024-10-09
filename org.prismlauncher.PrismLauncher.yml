@@ -35,6 +35,9 @@ modules:
   # Needed for proper Wayland support
   - libdecor.json
 
+  # Text to Speech in the game
+  - flite.json
+
   - name: prismlauncher
     buildsystem: cmake-ninja
     builddir: true
@@ -74,18 +77,14 @@ modules:
     config-opts:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
       - -DBUILD_SHARED_LIBS:BOOL=ON
-      - -DGLFW_USE_WAYLAND:BOOL=ON
+      - -DGLFW_BUILD_WAYLAND:BOOL=ON
       - -DGLFW_BUILD_DOCS:BOOL=OFF
     sources:
       - type: git
         url: https://github.com/glfw/glfw.git
-        commit: 3fa2360720eeba1964df3c0ecf4b5df8648a8e52
+        commit: 7b6aead9fb88b3623e3b3725ebb42670cbe4c579 # 3.4
       - type: patch
-        path: patches/0003-Don-t-crash-on-calls-to-focus-or-icon.patch
-      - type: patch
-        path: patches/0005-Add-warning-about-being-an-unofficial-patch.patch
-      - type: patch
-        path: patches/0007-Platform-Prefer-Wayland-over-X11.patch
+        path: patches/0009-Defer-setting-cursor-position-until-the-cursor-is-lo.patch
     cleanup:
       - /include
       - /lib/cmake
