@@ -41,6 +41,8 @@ modules:
     builddir: true
     config-opts:
       - -DLauncher_BUILD_PLATFORM=flatpak
+      # This allows us to manage and update Java independently of this Flatpak
+      - -DLauncher_ENABLE_JAVA_DOWNLOADER=ON
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     build-options:
       env:
