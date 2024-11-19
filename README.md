@@ -10,7 +10,7 @@ Please see upstream README for more information.
 1\. Install MangoHud for Flatpak apps with the following command:
 
 ```
-flatpak install org.freedesktop.Platform.VulkanLayer.MangoHud//23.08
+flatpak install org.freedesktop.Platform.VulkanLayer.MangoHud//24.08
 ```
 
 2\. Open Prism, click on the **Settings** button
