@@ -34,6 +34,7 @@ modules:
   - libdecor.json
 
   # Text to Speech in the game
+  # /w patch for pipewire
   - flite.json
 
   - name: prismlauncher
