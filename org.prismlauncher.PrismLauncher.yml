@@ -1,11 +1,20 @@
 id: org.prismlauncher.PrismLauncher
 runtime: org.kde.Platform
-runtime-version: '6.8'
+runtime-version: '6.9'
 sdk: org.kde.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.openjdk17
-
 command: prismlauncher
+
+add-extensions:
+  # Replay mod require ffmpeg to export video
+  org.freedesktop.Platform.ffmpeg-full:
+    version: '24.08'
+    directory: lib/ffmpeg
+    add-ld-path: .
+cleanup-commands:
+  - mkdir -p ${FLATPAK_DEST}/lib/ffmpeg
+
 finish-args:
   - --share=ipc
   - --socket=x11
@@ -25,7 +34,6 @@ finish-args:
     # Userspace visibility for transparent hugepages configuration
     # Required for -XX:+UseTransparentHugePages
   - --filesystem=/sys/kernel/mm/transparent_hugepage:ro
-
 modules:
   # Might be needed by some Controller mods (see https://github.com/isXander/Controlify/issues/31)
   - shared-modules/libusb/libusb.json
