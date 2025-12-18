@@ -6,6 +6,16 @@ sdk-extensions:
   - org.freedesktop.Sdk.Extension.openjdk17
 
 command: prismlauncher
+
+add-extensions:
+  # Replay mod require ffmpeg to export video
+  org.freedesktop.Platform.ffmpeg-full:
+    version: '24.08'
+    directory: lib/ffmpeg
+    add-ld-path: .
+cleanup-commands:
+  - mkdir -p ${FLATPAK_DEST}/lib/ffmpeg
+
 finish-args:
   - --share=ipc
   - --socket=x11
