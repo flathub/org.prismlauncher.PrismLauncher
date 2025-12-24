@@ -1,0 +1,16 @@
+{
+  "name": "xprop",
+  "sources": [
+    {
+      "type": "archive",
+      "url": "https://xorg.freedesktop.org/archive/individual/app/xprop-1.2.8.tar.gz",
+      "sha256": "a8394338c99775160d733d54d73cdcdc5c9c80a0dc8cffd5be1b7c977254b745",
+      "x-checker-data": {
+        "type": "anitya",
+        "project-id": 14958,
+        "stable-only": true,
+        "url-template": "https://xorg.freedesktop.org/archive/individual/app/xprop-$version.tar.gz"
+      }
+    }
+  ]
+}
