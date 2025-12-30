@@ -72,7 +72,9 @@ modules:
         url: https://github.com/glfw/glfw.git
         commit: 7b6aead9fb88b3623e3b3725ebb42670cbe4c579 # 3.4
       - type: patch
-        path: patches/0009-Defer-setting-cursor-position-until-the-cursor-is-lo.patch
+        path: patches/0001-Wayland-Partially-implement-glfwSetCursorPos.patch
+      - type: patch
+        path: patches/0002-fix-minecraft-proceed-even-though-no-window-icon-sup.patch
     cleanup:
       - /include
       - /lib/cmake

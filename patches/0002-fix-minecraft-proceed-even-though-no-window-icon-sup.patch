@@ -1,0 +1,31 @@
+From 876c6be5b96d86b91ec51d46d4baf025e1496fa9 Mon Sep 17 00:00:00 2001
+From: DioEgizio <83089242+DioEgizio@users.noreply.github.com>
+Date: Tue, 30 Dec 2025 22:13:07 +0100
+Subject: [PATCH 2/2] fix(minecraft): proceed even though no window icon
+ support on wayland
+
+hack needed for old versions of minecraft with our custom Wayland. Thanks to BoyOrigin/glfw-wayland for the original implementation
+
+Co-authored-by: FayBoy <ahmadyasinfikri@gmail.com>
+---
+ src/wl_window.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/wl_window.c b/src/wl_window.c
+index 4283f88f..fb34b0c0 100644
+--- a/src/wl_window.c
++++ b/src/wl_window.c
+@@ -2227,8 +2227,8 @@ void _glfwSetWindowTitleWayland(_GLFWwindow* window, const char* title)
+ void _glfwSetWindowIconWayland(_GLFWwindow* window,
+                                int count, const GLFWimage* images)
+ {
+-    _glfwInputError(GLFW_FEATURE_UNAVAILABLE,
+-                    "Wayland: The platform does not support setting the window icon");
++    fprintf(stderr,
++            "[GLFW] Wayland: The platform does not support setting the window icon\n");
+ }
+ 
+ void _glfwGetWindowPosWayland(_GLFWwindow* window, int* xpos, int* ypos)
+-- 
+2.52.0
+
