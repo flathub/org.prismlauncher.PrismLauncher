@@ -27,14 +27,14 @@ finish-args:
   - --filesystem=/sys/kernel/mm/transparent_hugepage:ro
 
 add-extensions:
-  org.prismlauncher.PrismLauncher.Wrapper:
-    directory: wrappers
+  org.prismlauncher.PrismLauncher.Extension:
+    directory: extension
     subdirectories: true
     no-autodownload: true
     autodelete: true
 
 cleanup-commands:
-  - mkdir -p ${FLATPAK_DEST}/wrappers
+  - mkdir -p ${FLATPAK_DEST}/extension
 
 modules:
   - cmark.yml
