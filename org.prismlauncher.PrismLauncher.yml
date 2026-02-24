@@ -26,6 +26,16 @@ finish-args:
     # Required for -XX:+UseTransparentHugePages
   - --filesystem=/sys/kernel/mm/transparent_hugepage:ro
 
+add-extensions:
+  org.prismlauncher.PrismLauncher.Extension:
+    directory: extensions
+    subdirectories: true
+    no-autodownload: true
+    autodelete: true
+
+cleanup-commands:
+  - mkdir -p ${FLATPAK_DEST}/extensions
+
 modules:
   - cmark.yml
   - tomlplusplus.yml
