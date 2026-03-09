@@ -29,6 +29,7 @@ finish-args:
 add-extensions:
   org.prismlauncher.PrismLauncher.Extension:
     directory: extensions
+    add-ld-path: lib
     subdirectories: true
     no-autodownload: true
     autodelete: true
