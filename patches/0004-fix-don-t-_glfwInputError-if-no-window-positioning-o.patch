@@ -1,0 +1,29 @@
+From 3fe9d21d64be7e5ca24c9d9b1b765c0805d4954a Mon Sep 17 00:00:00 2001
+From: DioEgizio <dioegizio@protonmail.com>
+Date: Wed, 1 Apr 2026 18:11:13 +0200
+Subject: [PATCH] fix: don't _glfwInputError if no window positioning on
+ Wayland
+
+fixes forge 1.16.5 on native wayland
+---
+ src/wl_window.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/wl_window.c b/src/wl_window.c
+index cddcac44..7a3770a4 100644
+--- a/src/wl_window.c
++++ b/src/wl_window.c
+@@ -2292,8 +2292,8 @@ void _glfwSetWindowPosWayland(_GLFWwindow* window, int xpos, int ypos)
+ {
+     // A Wayland client can not set its position, so just warn
+ 
+-    _glfwInputError(GLFW_FEATURE_UNAVAILABLE,
+-                    "Wayland: The platform does not support setting the window position");
++    fprintf(stderr,
++                "[GLFW] Wayland: The platform does not support setting the window position");
+ }
+ 
+ void _glfwGetWindowSizeWayland(_GLFWwindow* window, int* width, int* height)
+-- 
+2.53.0
+
