@@ -37,6 +37,9 @@ modules:
   # /w patch for pipewire
   - flite.json
 
+  # For LWJGL tinyfd
+  - xprop.json
+
   - name: prismlauncher
     buildsystem: cmake-ninja
     builddir: true
