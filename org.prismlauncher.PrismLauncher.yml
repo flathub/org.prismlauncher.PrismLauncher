@@ -77,6 +77,8 @@ modules:
         path: patches/0002-Wayland-Implement-glfwSetWindowIcon.patch
       - type: patch
         path: patches/0003-proceed-even-though-no-window-icon-support-on-waylan.patch
+      - type: patch
+        path: patches/window-position.patch
     cleanup:
       - /include
       - /lib/cmake
