@@ -51,8 +51,8 @@ modules:
         JAVA_COMPILER: /usr/lib/sdk/openjdk17/jvm/openjdk-17/bin/javac
     sources:
       - type: archive
-        url: https://github.com/PrismLauncher/PrismLauncher/releases/download/11.0.3/PrismLauncher-11.0.3.tar.gz
-        sha256: 78c368140a4d49bf2a12ef0e03d045c6723fe8e5a5c9590668fb63ee0a264ef2
+        url: https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.0/PrismLauncher-11.1.0.tar.gz
+        sha256: c0f6965f6c61055f92872d6eb9e79b845d3684f03bfd5a2ffc533a29fb26e604
         x-checker-data:
           type: json
           url: https://api.github.com/repos/PrismLauncher/PrismLauncher/releases/latest
