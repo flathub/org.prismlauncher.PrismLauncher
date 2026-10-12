@@ -10,7 +10,10 @@ finish-args:
   - --share=ipc
   - --socket=x11
   - --socket=wayland
-  - --device=all
+    # fallback to device=all if flatpak version below 1.17.0
+  - --device-if=all:!has-input-device
+  - --device=dri
+  - --device=input
   - --share=network
   - --socket=pulseaudio
     # for Discord RPC mods
