@@ -74,12 +74,8 @@ modules:
   - name: enhance
     buildsystem: simple
     build-commands:
-      - install -Dm755 prime-run /app/bin/prime-run
       - install -Dm755 prismlauncher /app/bin/prismlauncher-wrapper
     sources:
-      # Script used to wrap instances and ensure they use dGPUs in hyprid configurations
-      - type: file
-        path: scripts/prime-run
       # Sets up Discord RPC.
       - type: file
         path: scripts/prismlauncher
