@@ -1,17 +1,27 @@
 id: org.prismlauncher.PrismLauncher
 runtime: org.kde.Platform
-runtime-version: '6.10'
+runtime-version: "6.11"
 sdk: org.kde.Sdk
+command: prismlauncher-wrapper
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.openjdk17
 
-command: prismlauncher
+cleanup:
+  - /lib
+  - /share/tomlplusplus
+  - /share/qlogging-categories6
+  - /share/man
+  - /share/PrismLauncher
+  - /include
+
 finish-args:
   - --share=ipc
-  - --socket=x11
-  - --socket=wayland
-  - --device=all
   - --share=network
+  - --socket=wayland
+  - --socket=x11
+  - --device=dri
+  - --device=input
+  - --device-if=all:!has-input-device
   - --socket=pulseaudio
     # for Discord RPC mods
   - --filesystem=xdg-run/app/com.discordapp.Discord:create
@@ -25,41 +35,31 @@ finish-args:
     # Userspace visibility for transparent hugepages configuration
     # Required for -XX:+UseTransparentHugePages
   - --filesystem=/sys/kernel/mm/transparent_hugepage:ro
-
-add-extensions:
-  org.prismlauncher.PrismLauncher.Extension:
-    directory: extensions
-    add-ld-path: lib
-    subdirectories: true
-    no-autodownload: true
-    autodelete: true
-
-cleanup-commands:
-  - mkdir -p ${FLATPAK_DEST}/extensions
+  - --env=PATH=/usr/lib/extensions/vulkan/gamescope/bin:/usr/lib/extensions/vulkan/MangoHud/bin:/app/bin:/app/utils/bin:/usr/bin
+  - --env=VK_LAYER_PATH=/usr/lib/extensions/vulkan/share/vulkan/implicit_layer.d/
 
 modules:
-  - cmark.yml
-  - tomlplusplus.yml
-
-  # Needed for proper Wayland support
-  - libdecor.json
-
+  - modules/cmark.yml
   # Text to Speech in the game
-  # /w patch for pipewire
-  - flite.json
+  - modules/flite.yml
+  # Our patches improve native Wayland support
+  - modules/glfw.yml
+  - modules/tomlplusplus.yml
 
   - name: prismlauncher
     buildsystem: cmake-ninja
+    build-options:
+      env:
+        JAVA_HOME: /usr/lib/sdk/openjdk17/jvm/openjdk-17
+        JAVA_COMPILER: /usr/lib/sdk/openjdk17/jvm/openjdk-17/bin/javac
     builddir: true
     config-opts:
       - -DLauncher_BUILD_PLATFORM=flatpak
       # This allows us to manage and update Java independently of this Flatpak
       - -DLauncher_ENABLE_JAVA_DOWNLOADER=ON
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-    build-options:
-      env:
-        JAVA_HOME: /usr/lib/sdk/openjdk17/jvm/openjdk-17
-        JAVA_COMPILER: /usr/lib/sdk/openjdk17/jvm/openjdk-17/bin/javac
+    post-install:
+      - desktop-file-edit --set-key Exec --set-value prismlauncher-wrapper /app/share/applications/org.prismlauncher.PrismLauncher.desktop
     sources:
       - type: archive
         url: https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-11.1.1.tar.gz
@@ -71,76 +71,11 @@ modules:
           url-query: .assets[] | select(.name == "PrismLauncher-" + $version + ".tar.gz")
             | .browser_download_url
 
-  - name: glfw
-    buildsystem: cmake-ninja
-    config-opts:
-      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-      - -DBUILD_SHARED_LIBS:BOOL=ON
-      - -DGLFW_BUILD_WAYLAND:BOOL=ON
-      - -DGLFW_BUILD_DOCS:BOOL=OFF
-    sources:
-      - type: git
-        url: https://github.com/glfw/glfw.git
-        commit: 7b6aead9fb88b3623e3b3725ebb42670cbe4c579 # 3.4
-      - type: patch
-        path: patches/0001-Wayland-Partially-implement-glfwSetCursorPos.patch
-      - type: patch
-        path: patches/0002-Wayland-Implement-glfwSetWindowIcon.patch
-      - type: patch
-        path: patches/0003-proceed-even-though-no-window-icon-support-on-waylan.patch
-    cleanup:
-      - /include
-      - /lib/cmake
-      - /lib/pkgconfig
-
-  - name: xrandr
-    buildsystem: autotools
-    sources:
-      - type: archive
-        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.4.tar.xz
-        sha256: 2cafccb2aaf2491a4068676117a0d4f90ab307724b96fffc54cd1da953779400
-        x-checker-data:
-          type: anitya
-          project-id: 14957
-          stable-only: true
-          url-template: https://xorg.freedesktop.org/archive/individual/app/xrandr-$version.tar.xz
-    cleanup:
-      - /share/man
-      - /bin/xkeystone
-
-  - name: gamemode
-    buildsystem: meson
-    config-opts:
-      - -Dwith-sd-bus-provider=no-daemon
-      - -Dwith-examples=false
-    post-install:
-      # gamemoderun is installed for users who want to use wrapper commands
-      # post-install is running inside the build dir, we need it from the source though
-      - install -Dm755 ../data/gamemoderun -t /app/bin
-    sources:
-      - type: archive
-        dest-filename: gamemode.tar.gz
-        url: https://api.github.com/repos/FeralInteractive/gamemode/tarball/1.8.2
-        sha256: 2886d4ce543c78bd2a364316d5e7fd59ef06b71de63f896b37c6d3dc97658f60
-        x-checker-data:
-          type: json
-          url: https://api.github.com/repos/FeralInteractive/gamemode/releases/latest
-          version-query: .tag_name
-          url-query: .tarball_url
-          timestamp-query: .published_at
-    cleanup:
-      - /include
-      - /lib/pkgconfig
-      - /lib/libgamemodeauto.a
-
   - name: enhance
     buildsystem: simple
     build-commands:
-      - install -Dm755 prime-run /app/bin/prime-run
-      - mv /app/bin/prismlauncher /app/bin/prismrun
-      - install -Dm755 prismlauncher /app/bin/prismlauncher
+      - install -Dm755 prismlauncher /app/bin/prismlauncher-wrapper
     sources:
+      # Sets up Discord RPC.
       - type: file
-        path: prime-run
-      - type: file
-        path: prismlauncher
+        path: scripts/prismlauncher
